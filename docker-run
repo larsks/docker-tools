@@ -1,0 +1,31 @@
+#!/bin/sh
+
+imagename=$1
+shift
+
+docker_args=()
+cmd_args=()
+args_for_cmd=0
+for arg in "$@"; do
+	if [[ $arg = "--" ]]; then
+		args_for_cmd=1
+		continue
+	fi
+
+	if [[ $args_for_cmd = 0 ]]; then
+		docker_args+=("$arg")
+	else
+		cmd_args+=("$arg")
+	fi
+done
+
+if [[ $args_for_cmd = 0 ]]; then
+	cmd_args=("${docker_args[@]}")
+	docker_args=()
+fi
+
+exec docker run \
+	--rm \
+	"${docker_args[@]}" \
+	$imagename \
+	"${cmd_args[@]}"

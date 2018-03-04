@@ -1,0 +1,18 @@
+#!/bin/sh
+
+image=$1
+shift
+
+exec docker-run $image \
+	-v $HOME:$HOME \
+	-v /etc/passwd:/etc/passwd \
+	-v /etc/group:/etc/group \
+	-v /tmp:/tmp \
+	-w "$PWD" -u $UID \
+	-e DISPLAY=unix$DISPLAY \
+	-e HOME=$HOME \
+	-e LOGNAME=$LOGNAME \
+	-e USER=$USER \
+	--net=host \
+	-- \
+	"$@"

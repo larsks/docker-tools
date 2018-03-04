@@ -1,0 +1,6 @@
+#!/bin/sh
+
+imagename=${0##*/}
+imagename=${imagename/__/\/}
+
+exec docker-user-run $imagename "$@"

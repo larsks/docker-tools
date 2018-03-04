@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec docker inspect --format \
+	'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' \
+	"$@"
+
