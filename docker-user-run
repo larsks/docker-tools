@@ -14,5 +14,4 @@ exec docker-run $image \
 	-e LOGNAME=$LOGNAME \
 	-e USER=$USER \
 	--net=host \
-	-- \
 	"$@"
